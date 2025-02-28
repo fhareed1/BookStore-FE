@@ -3,7 +3,7 @@ import { LoginType, SignUpType } from "@/types/auth";
 
 const login = async (payload: LoginType) => {
   const response = await apiClient.post("/auth/login", payload);
-  console.log(response.data)
+
   localStorage.setItem("token", JSON.stringify(response.data.token));
   localStorage.setItem("user", JSON.stringify(response.data.user));
   return response;

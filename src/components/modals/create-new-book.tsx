@@ -62,7 +62,7 @@ const CreateBook = ({ onOpen, onOpenChange }: CreateBookProps) => {
         image: "",
         description: "",
       });
-      console.log(bookData);
+  
       setFile(null);
       setPreview(undefined);
       // Close sheet

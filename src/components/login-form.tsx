@@ -36,7 +36,7 @@ export function LoginForm() {
       // }
       toast.success("Logged in successfully");
       navigate(ROUTES.dashboard);
-      // console.log(user);
+    
     },
     onError: () => {
       toast.error("Login failed");

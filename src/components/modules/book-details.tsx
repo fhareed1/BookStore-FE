@@ -16,6 +16,7 @@ import bookService from "@/services/bookServices";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/store/useAuth";
+import paymentService from "@/services/paymentServices";
 
 interface BookDetailsProps {
   children: ReactNode; // Correct way to type children props
@@ -42,6 +43,28 @@ const BookDetails = ({
       toast.error("This book failed to delete");
     },
   });
+
+  const { mutate: initializePayment, status: paymentStatus } = useMutation({
+    mutationFn: paymentService.initialPayment,
+    onSuccess: (data) => {
+      toast.success("Payment initialized successfully");
+      if (data.authorization_url) {
+        window.location.href = data.authorization_url; // Redirect only after getting URL
+      }
+    },
+    onError: () => {
+      toast.error("Failed to initialize");
+    },
+  });
+
+  const handlePayment = () => {
+    const payload = {
+      email: user?.email ?? "",
+      amount: String(Number(book.price) * 100),
+    };
+
+    initializePayment(payload);
+  };
 
   return (
     <>
@@ -107,7 +130,13 @@ const BookDetails = ({
                   )}
                 </Button>
               ) : null}
-              <Button type="submit">Buy ₦ {book.price}</Button>
+              <Button type="button" onClick={handlePayment}>
+                {paymentStatus === "pending" ? (
+                  <Loader2 />
+                ) : (
+                  <>Buy ₦ {book.price}</>
+                )}
+              </Button>
             </DialogFooter>
           </div>
         </DialogContent>

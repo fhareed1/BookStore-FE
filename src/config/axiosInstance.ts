@@ -13,7 +13,6 @@ apiClient.interceptors.request.use(
     let token = localStorage.getItem("token");
     if (token) {
       token = token.replace(/"/g, "");
-      console.log("Retrieved Token:", token);
       config.headers.Authorization = `Bearer ${token}`;
     }
 

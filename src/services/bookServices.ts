@@ -4,7 +4,7 @@ import { BookCreateType } from "@/types/book";
 const createBook = async (payload: BookCreateType) => {
   try {
     const response = await apiClient.post("/books", payload);
-    console.log(response);
+  
 
     return response;
   } catch (error) {
@@ -16,7 +16,7 @@ const createBook = async (payload: BookCreateType) => {
 
 const getBooks = async () => {
   const response = await apiClient.get("/books");
-  console.log(response);
+
   return response;
 };
 
