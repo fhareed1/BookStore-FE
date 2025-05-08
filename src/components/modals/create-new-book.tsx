@@ -109,7 +109,7 @@ const CreateBook = ({ onOpen, onOpenChange }: CreateBookProps) => {
 
       // Make sure your cloud name is correct
       const response = await fetch(
-        "https://api.cloudinary.com/v1_1/fhareed/image/upload",
+        `${import.meta.env.VITE_CLOUDINARY_URL}`,
         {
           method: "POST",
           body: formData,
